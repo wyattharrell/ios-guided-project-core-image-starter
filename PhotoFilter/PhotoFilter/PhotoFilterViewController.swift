@@ -2,7 +2,7 @@ import UIKit
 import CoreImage
 import Photos
 
-class ViewController: UIViewController {
+class PhotoFilterViewController: UIViewController {
 
 	@IBOutlet var brightnessSlider: UISlider!
 	@IBOutlet var contrastSlider: UISlider!
@@ -23,7 +23,7 @@ class ViewController: UIViewController {
 	
 	@IBAction func savePhotoButtonPressed(_ sender: UIButton) {
 
-
+		// TODO: Save to photo library
 	}
 	
 
