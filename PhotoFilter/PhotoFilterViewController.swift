@@ -4,10 +4,10 @@ import Photos
 
 class PhotoFilterViewController: UIViewController {
 
-	@IBOutlet var brightnessSlider: UISlider!
-	@IBOutlet var contrastSlider: UISlider!
-	@IBOutlet var saturationSlider: UISlider!
-	@IBOutlet var imageView: UIImageView!
+	@IBOutlet weak var brightnessSlider: UISlider!
+	@IBOutlet weak var contrastSlider: UISlider!
+	@IBOutlet weak var saturationSlider: UISlider!
+	@IBOutlet weak var imageView: UIImageView!
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -22,7 +22,6 @@ class PhotoFilterViewController: UIViewController {
 	}
 	
 	@IBAction func savePhotoButtonPressed(_ sender: UIButton) {
-
 		// TODO: Save to photo library
 	}
 	
