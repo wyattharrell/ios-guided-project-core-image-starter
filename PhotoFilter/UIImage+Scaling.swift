@@ -23,6 +23,7 @@ extension UIImage {
             correctedSize.height = correctedSize.height/originalAspectRatio
         }
         
+        // Redrawing a UIImage will remove rotation information from the image
         return UIGraphicsImageRenderer(size: correctedSize, format: imageRendererFormat).image { context in
             draw(in: CGRect(origin: .zero, size: correctedSize))
         }

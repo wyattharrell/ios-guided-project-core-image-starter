@@ -8,6 +8,19 @@ class PhotoFilterViewController: UIViewController {
     let context = CIContext(options: nil)
     var originalImage: UIImage? {
         didSet {
+            // resize the scaledImage and set it
+            guard let originalImage = originalImage else { return }
+            // Height and width
+            var scaledSize = imageView.bounds.size
+            let scale = UIScreen.main.scale  // 1x, 2x, or 3x
+            scaledSize = CGSize(width: scaledSize.width * scale, height: scaledSize.height * scale)
+            print("scaled size: \(scaledSize)")
+            
+            scaledImage = originalImage.imageByScaling(toSize: scaledSize)
+        }
+    }
+    var scaledImage: UIImage? {
+        didSet {
             updateViews()
         }
     }
@@ -74,8 +87,8 @@ class PhotoFilterViewController: UIViewController {
 	}
 	
     private func updateViews() {
-        if let originalImage = originalImage {
-            imageView.image = filterImage(originalImage)
+        if let scaledImage = scaledImage {
+            imageView.image = filterImage(scaledImage)
         } else {
             imageView.image = nil
         }
