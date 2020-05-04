@@ -82,9 +82,32 @@ class PhotoFilterViewController: UIViewController {
 		presentImagePickerController()
 	}
 	
-	@IBAction func savePhotoButtonPressed(_ sender: UIButton) {
-		// TODO: Save to photo library
-	}
+    @IBAction func savePhotoButtonPressed(_ sender: UIButton) {
+        guard let originalImage = originalImage else { return }
+        guard let processedImage = filterImage(originalImage.flattened) else { return }
+        PHPhotoLibrary.requestAuthorization { (status) in
+            guard status == .authorized else { return }
+            // Let the library know we are going to make changes
+            PHPhotoLibrary.shared().performChanges({
+                // Make a new photo creation request
+                PHAssetCreationRequest.creationRequestForAsset(from: processedImage)
+            }, completionHandler: { (success, error) in
+                if let error = error {
+                    NSLog("Error saving photo: \(error)")
+                    return
+                }
+                DispatchQueue.main.async {
+                    self.presentSuccessfulSaveAlert()
+                }
+            })
+        }
+    }
+    private func presentSuccessfulSaveAlert() {
+        let alert = UIAlertController(title: "Photo Saved!", message: "The photo has been saved to your Photo Library!", preferredStyle: .alert)
+        let okayAction = UIAlertAction(title: "Okay", style: .default, handler: nil)
+        alert.addAction(okayAction)
+        present(alert, animated: true, completion: nil)
+    }
 	
     private func updateViews() {
         if let scaledImage = scaledImage {
